@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
+    android:theme="@style/Theme.MyApplication">
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add" />
+
+    <Button
+        android:id="@+id/btn_reduce"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/reduce" />
+
+    <Button
+        android:id="@+id/btn_reset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/reset" />
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:textSize="24sp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:text="@string/enable_exception_bp"
+            android:gravity="center"/>
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/sw_exception"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:thumb="@drawable/switch_thumb"
+            android:textOn="@string/switch_on"
+            android:textOff="@string/switch_off"
+            app:showText="true"
+            app:track="@drawable/switch_track"
+            app:switchTextAppearance="@style/SwitchText"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="20dp"
+            android:text="@string/enable_field_bp"
+            android:gravity="center"/>
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/sw_field"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:thumb="@drawable/switch_thumb"
+            android:textOn="@string/switch_on"
+            android:textOff="@string/switch_off"
+            app:showText="true"
+            app:track="@drawable/switch_track"
+            app:switchTextAppearance="@style/SwitchText"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_show_channel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/show_channel" />
+    <Button
+        android:id="@+id/btn_show_developer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/show_developer" />
+    <Button
+        android:id="@+id/btn_show_service_api"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/show_service_api" />
+
+</LinearLayout>

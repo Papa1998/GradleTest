@@ -1,0 +1,130 @@
+//plugins {
+//    id 'com.android.application' // 使用这个插件让本Module编译成apk包
+//    id 'kotlin-android'
+//    id 'kotlin-android-extensions'
+//}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+gradle.beforeProject {
+    println "$project.name: In build.gradle and before Project"
+}
+
+gradle.taskGraph.whenReady {
+    println "$project.name: In build.gradle and taskGraph.whenReady"
+}
+
+gradle.taskGraph.with {
+    println "$project.name: In build.gradle and taskGraph.with"
+}
+
+gradle.afterProject {
+    println "$project.name: In build.gradle and after Project"
+}
+
+gradle.buildFinished {
+    println "$project.name: In build.gradle and buildFinished"
+}
+
+// 读取local.properties文件
+def propertiesFile = rootProject.file("local.properties")
+def properties = new Properties()
+properties.load(new FileInputStream(propertiesFile))
+
+android {
+//    compileSdkVersion rootProject.ext.compileSdkVersion // 使用了顶层构建脚本中的全局属性
+//    buildToolsVersion rootProject.ext.buildToolsVersion // 使用了顶层构建脚本中的全局属性
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.papa.gradletest" // app的包名，相当于身份证
+        minSdkVersion 16 // app运行时的最低api版本
+        targetSdkVersion 30 // 测试时的api版本
+        versionCode 1 // 版本号
+        versionName "1.0" // 版本名
+        multiDexEnabled true // 开启多dex文件打包模式
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs { // 配置签名信息，正常来说配置到配置文件中
+        release {
+            storeFile file('/Users/zhengtingfeng/Documents/as/GradleTest/Untitled') // 签名store的文件文字
+            storePassword STORE_PASSWORD // store密码，存储在gradle.properties中
+            keyAlias properties.getProperty('KEY_ALIAS') // 秘钥别名，存储在local.properties
+            keyPassword properties.getProperty('KEY_PASSWORD') // 秘钥密码，存储在local.properties
+        }
+    }
+
+    sourceSets.main {
+        java.srcDirs += 'src/global/java' // 如果没有按照默认的命名标准，需要在源码集这里添加
+    }
+
+    flavorDimensions "channel" // 渠道组
+    productFlavors { // 定义渠道，定义完后ide会自动生成以下标识的三个目录
+        normal {
+            dimension "channel"
+            applicationId "com.papa.gradletest.normal" // 指定normal渠道的包名
+            manifestPlaceholders = [CHANNEL: "normal", DEVELOPER: "Papa"]
+        }
+
+        lite {
+            dimension "channel"
+            applicationIdSuffix ".lite" // 指定lite渠道的包名后缀
+            manifestPlaceholders = [CHANNEL: "lite", DEVELOPER: "Lala"]
+
+        }
+
+        pro {
+            dimension "channel"
+            applicationIdSuffix ".pro" // 指定pro渠道的包名后缀
+            manifestPlaceholders = [CHANNEL: "pro", DEVELOPER: "Kaka"]
+            buildConfigField "int", "int_test", "2"
+        }
+    }
+
+    // 环境会覆盖渠道
+    buildTypes {
+        debug {
+            minifyEnabled false // 关闭混淆
+            debuggable true
+            buildConfigField "String", "service_api", "${SERVICE_API_DEBUG}"
+        }
+
+        release {
+            signingConfig signingConfigs.release // 配置签名
+            minifyEnabled true // 开启混淆
+            buildConfigField "String", "service_api", "${SERVICE_API_RELEASE}"
+            buildConfigField "boolean", "boolean_test", "true"
+//            buildConfigField "int", "int_test", "1"
+            buildConfigField "float", "float_test", "1.0"
+            buildConfigField "double", "double_test", "0.05"
+            buildConfigField "long", "long_test", "2"
+            buildConfigField "short", "short_test", "3"
+            buildConfigField "byte", "byte_test", "4"
+
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt') // 从 Android SDK 目录下的 tools/proguard/ 文件夹获取默认的 ProGuard 设置，默认只会使用压缩和混淆两个功能
+            proguardFiles 'proguard-rules.pro' // 指定混淆文件
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    testImplementation 'junit:junit:4.13.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    api project(':library1') // 依赖Module，会产生传递依赖，导致整条路劲重新编译
+    api project(':library2') // 依赖Module，不会产生传递依赖，不会导致整条路劲重新编译
+
+}

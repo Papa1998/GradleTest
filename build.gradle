@@ -1,0 +1,92 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript { // buildscript声明是gradle脚本自身需要使用的资源，包括插件所在的仓库地址，插件依赖
+    println "$project.name: In build.gradle, buildscript and before Project"  // 遍历子Project, project变量对应每个子Project
+
+    ext.kotlin_version = '1.3.72'
+    repositories {
+        google()
+        jcenter() // jcenter是一个函数，标识编译过程中依赖的库，所需的插件可以在jcenter仓库中下载
+    }
+    dependencies { // 表示编译的时候，依赖android开发的gradle插件
+        classpath "com.android.tools.build:gradle:4.1.1" // android执行task任务所必须的插件地址
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version" // kotlin
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+
+}
+
+//gradle.beforeProject {
+//    println "$project.name: In build.gradle and before Project"
+//}
+
+allprojects { // allprojects下的配置会被运用到所有module中，包括依赖仓库，依赖地址
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+// 定义全局属性，google不建议在模块级构建脚本中定义全局属性
+//ext {
+//    compileSdkVersion = 30
+//    buildToolsVersion = "30.0.2"
+//}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+// task collections {
+//     println 'Hello World'
+
+//     println '列表开始'
+//     def list = [10, 'string', true]
+//     println list[0]
+//     println list[1]
+//     list[2] = false
+//     println list[2]
+//     println '列表结束\n\r'
+
+//     println 'map开始'
+//     def map = ['int': 4, 'boolean': false, 'string': "你好"]
+//     println map['int']
+//     map['string'] = '6'
+//     println map['string']
+//     println 'map结束\n\r'
+
+//     println '范围开始'
+//     def range = 1..5
+//     println range.from
+//     println range[0]
+//     println range.to
+
+//     range.each{
+//         println range.value
+//     }
+
+//     println '范围结束\n\r'
+// }
+
+// def omitTest(int a, int b, Closure closure){
+//     println a + b
+//     closure()
+// }
+
+// task closure {
+
+//     def itTest = {
+//         "Hello, $it!"
+//     }
+
+//     println itTest("world")
+
+//     omitTest 1,2,{
+//         println "在闭包中"
+//     }
+
+// }
+
+// task main() {
+//     println 'main'
+// }

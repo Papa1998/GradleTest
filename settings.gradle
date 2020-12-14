@@ -1,0 +1,13 @@
+include ':library4'
+include ':library3'
+include ':library2'
+include ':library1'
+include ':app'
+rootProject.name = "GradleTest"
+
+println "In settings.gradle, gradle id is " + gradle.hashCode()
+println "Home Dir: " + gradle.gradleHomeDir
+println "User Home Dir: " + gradle.gradleUserHomeDir
+println "Parent: " + gradle.parent
+
+

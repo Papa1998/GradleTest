@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="add">add</string>
+    <string name="reset">reset</string>
+    <string name="reduce">reduce</string>
+    <string name="enable_exception_bp">开启异常断点测试</string>
+    <string name="switch_off">Off</string>
+    <string name="switch_on">On</string>
+    <string name="enable_field_bp">开启属性断点测试</string>
+    <string name="show_channel">show channel</string>
+    <string name="show_developer">show developer</string>
+    <string name="show_service_api">显示服务器地址</string>
+</resources>
