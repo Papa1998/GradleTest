@@ -46,12 +46,20 @@ android {
         versionCode 1 // 版本号
         versionName "1.0" // 版本名
         multiDexEnabled true // 开启多dex文件打包模式
+        buildConfigField "int", "int_test", "0" // 在生成的BuildConfig中添加int字段，值为2
+        manifestPlaceholders = [CHANNEL: "normal", DEVELOPER: "Papa1"] // 为AndroidManifest中的的meta-data对应的键赋值
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs { // 配置签名信息，正常来说配置到配置文件中
+        lite {
+            storeFile file('/Users/zhengtingfeng/Documents/as/GradleTest/Untitled') // 签名store的文件路径
+            storePassword "123456" // store密码
+            keyAlias "key0" // 秘钥别名
+            keyPassword "123456" // 秘钥密码
+        }
         release {
-            storeFile file('/Users/zhengtingfeng/Documents/as/GradleTest/Untitled') // 签名store的文件文字
+            storeFile file('/Users/zhengtingfeng/Documents/as/GradleTest/Untitled') // 签名store的文件路径
             storePassword STORE_PASSWORD // store密码，存储在gradle.properties中
             keyAlias properties.getProperty('KEY_ALIAS') // 秘钥别名，存储在local.properties
             keyPassword properties.getProperty('KEY_PASSWORD') // 秘钥密码，存储在local.properties
@@ -67,10 +75,11 @@ android {
         normal {
             dimension "channel"
             applicationId "com.papa.gradletest.normal" // 指定normal渠道的包名
-            manifestPlaceholders = [CHANNEL: "normal", DEVELOPER: "Papa"]
+            manifestPlaceholders = [CHANNEL: "normal", DEVELOPER: "Papa2"]
         }
 
         lite {
+            signingConfig signingConfigs.lite
             dimension "channel"
             applicationIdSuffix ".lite" // 指定lite渠道的包名后缀
             manifestPlaceholders = [CHANNEL: "lite", DEVELOPER: "Lala"]
