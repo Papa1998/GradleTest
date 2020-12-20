@@ -51,6 +51,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    sourceSets.main {
+        java.srcDirs += 'src/main/kotlin' // 添加源码集目录，无此配置时每次重启都需要手动添加
+    }
+
     signingConfigs { // 配置签名信息，正常来说配置到配置文件中
         lite {
             storeFile file('/Users/zhengtingfeng/Documents/as/GradleTest/Untitled') // 签名store的文件路径
@@ -135,5 +139,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     api project(':library1') // 依赖Module，会产生传递依赖，导致整条路劲重新编译
     api project(':library2') // 依赖Module，不会产生传递依赖，不会导致整条路劲重新编译
-
+    implementation 'com.google.code.gson:gson:2.8.6' // 导入远程仓库中的第三方库gson
+    implementation files('libs/glide-4.8.0.aar') // 导入本地下载的aar包或者jar包
 }
