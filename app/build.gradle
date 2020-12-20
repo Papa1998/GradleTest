@@ -52,6 +52,7 @@ android {
     }
 
     sourceSets.main {
+        java.srcDirs += 'src/global/java' // 如果没有按照默认的命名标准，需要在源码集这里添加
         java.srcDirs += 'src/main/kotlin' // 添加源码集目录，无此配置时每次重启都需要手动添加
     }
 
@@ -68,10 +69,6 @@ android {
             keyAlias properties.getProperty('KEY_ALIAS') // 秘钥别名，存储在local.properties
             keyPassword properties.getProperty('KEY_PASSWORD') // 秘钥密码，存储在local.properties
         }
-    }
-
-    sourceSets.main {
-        java.srcDirs += 'src/global/java' // 如果没有按照默认的命名标准，需要在源码集这里添加
     }
 
     flavorDimensions "channel" // 渠道组
