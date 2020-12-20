@@ -19,8 +19,6 @@ import androidx.appcompat.widget.SwitchCompat;
 
 import com.papa.library1.Library1Utils;
 import com.papa.library2.Library2Utils;
-import com.papa.library3.Library3Utils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +29,7 @@ import java.util.List;
  * ① 调试测试方法都在 {@link MainActivity#onClick(View)}
  * ② 断点管理区测试在 {@link MainActivity#managerArea()}
  * ③ 断点类型测试在 {@link MainActivity#breakpointTest()}
+ * ④ 传递性与非传递性依赖 {@link MainActivity#useModule()}
  */
 public class MainActivity extends Activity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener{
 
@@ -153,7 +152,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Comp
     private void useModule() {
         Library1Utils.showModuleName();
         Library2Utils.showModuleName();
-        Library3Utils.showModuleName();
+//        Library3Utils.showModuleName(); // 依赖性与非依赖性传递，修改library2的对library3的依赖
     }
 
     // 断点测试方法
