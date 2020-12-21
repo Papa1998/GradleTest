@@ -58,13 +58,13 @@ android {
 
     signingConfigs { // 配置签名信息，正常来说配置到配置文件中
         lite {
-            storeFile file('/Users/zhengtingfeng/Documents/as/GradleTest/Untitled') // 签名store的文件路径
+            storeFile file('/Users/papa/Documents/as/GradleTest/Untitled') // 签名store的文件路径
             storePassword "123456" // store密码
             keyAlias "key0" // 秘钥别名
             keyPassword "123456" // 秘钥密码
         }
         release {
-            storeFile file('/Users/zhengtingfeng/Documents/as/GradleTest/Untitled') // 签名store的文件路径
+            storeFile file('/Users/papa/Documents/as/GradleTest/Untitled') // 签名store的文件路径
             storePassword STORE_PASSWORD // store密码，存储在gradle.properties中
             keyAlias properties.getProperty('KEY_ALIAS') // 秘钥别名，存储在local.properties
             keyPassword properties.getProperty('KEY_PASSWORD') // 秘钥密码，存储在local.properties
